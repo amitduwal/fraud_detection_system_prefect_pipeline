@@ -22,7 +22,7 @@ By their nature, fraud occurrences are fortunately an extreme minority in any li
 
 To fix imbalance, we can re-balance our data using the synthetic minority oversampling technique (SMOTE). Unlike random oversampling, SMOTE is slightly more sophisticated since it does not just create exact copies of observations. Instead, it uses characteristics of nearest neighbours of fraud cases to create new, synthetic samples that are quite like the existing observations in the minority class.
 
-![img2](imgs\img2.png)
+![img2](imgs/img2.png)
 
 ## Model Training and Evaluation
 n this fraud detection project, a machine learning model was created using logistic regression and SMOTE (Synthetic Minority Over-sampling Technique). Logistic regression is a widely used algorithm for binary classification tasks, making it suitable for detecting fraudulent transactions. The model was trained on a dataset containing historical transaction data, with the target variable indicating whether a transaction was fraudulent or legitimate. To address the issue of imbalanced data, where fraudulent transactions are significantly fewer than legitimate ones, SMOTE was applied. SMOTE generates synthetic samples of the minority class (fraudulent transactions) to balance the dataset, thereby improving the model's ability to accurately detect fraudulent activities. The combination of logistic regression and SMOTE helps create a robust and effective fraud detection model for identifying potential fraudulent transactions.
@@ -31,10 +31,10 @@ After the logistic regression model was trained using SMOTE and evaluated, it wa
 integrated into the fraud detection pipeline whenever new data needs to be processed and evaluated for potentially fraudulent activities.
 
 Without SMOTE
-![img3](imgs\img3.png)
+![img3](imgs/img3.png)
 
 With SMOTE
-![img2](imgs\img4.png)
+![img2](imgs/img4.png)
 
 ## Pipeline with Prefect
 
