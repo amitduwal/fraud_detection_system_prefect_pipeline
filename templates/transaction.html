@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles2.css') }}">
+    <title>Transaction_Details</title>
+</head>
+<body>
+    <h2>Transaction Details</h2>
+    <div class="transaction">
+        <h3>Transaction ID: {{details[0]}}</h3>
+        <h4>Actual: {% if details[29] == '0' %}Not Fraud{% else %}Fraud{% endif %}</h4>
+        <h4>Predicted: {% if details[30] == '0.0' %}Not Fraud{% else %}Fraud{% endif %}</h4>
+        <h3>Classification: 
+            {% if details[29] == '0' and details[30] == '0.0' %}
+              True Negative
+            {% elif details[29] == '0' and details[30] == '1.0' %}
+              False Positive
+            {% elif details[29] == '1' and details[30] == '0.0' %}
+              False Negative
+            {% elif details[29] == '1' and details[30] == '1.0' %}
+              True Positive
+            {% endif %}
+        </h3>
+        {% for value in details[1:-2]  %}
+            <p>Value{{ loop.index }}: {{ value }}</p>
+        {% endfor %}
+        <button class="take-action">Take Action</button>
+    </div>
+</body>
+</html>

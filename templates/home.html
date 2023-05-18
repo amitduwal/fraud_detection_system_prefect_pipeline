@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Fraud Detection System</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+        <!-- Add any additional CSS stylesheets or scripts here -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <style>
+            
+            
+            .true-positive {
+                background-color: rgb(251, 138, 138);
+            }
+            
+            /* .false-positive {
+                background-color: rgb(25, 242, 25);
+            } */
+            
+            .true-negative {
+                background-color: rgb(168, 250, 168);
+            }
+            
+            /* .false-negative {
+                background-color: red;
+            } */
+        </style>
+        <script>
+            $(document).ready(function() {
+                // Function to fetch data from the get_data endpoint
+                function fetchData() {
+                    $.ajax({
+                        url: '/get_data',
+                        success: function(result) {
+                            updateData(result); // Update the classification results on success
+                        }
+                    });
+                }
+    
+                // Function to update the classification results on the page
+                function updateData(result) {
+                    $('.transaction').each(function(index) {
+                        // $(this).text(result[index]);
+                        var classification = result[index].split(',')[1];
+                        var message = "";
+                        // $(this).text("Transaction"+result[index]+"has occured");
+                        $(this).removeClass(); // Remove existing class
+                        $(this).addClass('transaction');
+                        if (classification === 'True Positive' || classification === 'False Positive') {
+                        $(this).addClass('true-positive');
+                        message = "Fraud detected.";
+                        } else if (classification === 'True Negative' || classification === 'False Negative') {
+                        $(this).addClass('true-negative');
+                        message = "No fraud detected.";}
+                        var detailsButton = $('<button>', {
+                            text: 'See Details',
+                            class: 'details-button'
+                        });
+                        detailsButton.click(function() {
+                            var transactionId = result[index].split(',')[0];
+                            
+                            var form = $('<form>', {
+                                method: 'POST',
+                                action: '/transaction_details'
+                            });
+                            var input = $('<input>', {
+                                type: 'hidden',
+                                name: 'transaction_id',
+                                value: transactionId
+                            });
+                            form.append(input).appendTo('body').submit();
+                        });
+                        $(this).text("Transaction "+result[index].split(',')[0]+" has occured. "+message);
+                        $(this).append(detailsButton);
+                    });
+                }
+    
+                // Initial data fetch on page load
+                fetchData();
+    
+                // Schedule data fetch every 5 seconds
+                setInterval(fetchData, 5000);
+            });
+        </script>
+   
+    </head>
+    <body>
+        <h2>Fraud Detection System</h2>
+        <div class="transaction">{{result[0]}}</div>
+        <div class="transaction">{{result[1]}}</div>
+        <div class="transaction">{{result[2]}}</div>
+        <div class="transaction">{{result[3]}}</div>
+        <div class="transaction">{{result[4]}}</div>
+        <div class="transaction">{{result[5]}}</div>
+        <div class="transaction">{{result[6]}}</div>
+        <div class="transaction">{{result[7]}}</div>
+    </body>
+</html>

@@ -1,0 +1,40 @@
+###
+### A complete description of a Prefect Deployment for flow 'process-data'
+###
+name: deplo1
+description: null
+version: dd602f6cc62b1f7a144d0e4f9ee4de10
+# The work queue that will handle this deployment's runs
+work_queue_name: que1
+work_pool_name: null
+tags: []
+parameters: {}
+schedule: null
+is_schedule_active: null
+infra_overrides: {}
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  working_dir: null
+  block_type_slug: process
+  _block_type_slug: process
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: process-data
+manifest_path: null
+storage: null
+path: E:\GeneseProject
+entrypoint: main.py:process_data
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties: {}
+  required: null
+  definitions: null
+timestamp: '2023-05-17T12:29:12.089077+00:00'
